@@ -5,5 +5,5 @@ import(
 )
 
 func main() {
-  helper.Help()
+  helper.Program()
 }

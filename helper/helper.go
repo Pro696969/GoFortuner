@@ -1,8 +1,21 @@
 package helper
 
-import "fmt"
+import (
+  "bufio"
+  "fmt"
+  "os/exec"
+)
 
-func Help() {
-  fmt.Println("this is helper fun")
+func Program() {
+  fortuneCommand := exec.Command("fortune", "-f")
+  pipe, err := fortuneCommand.StderrPipe()
+
+  if err != nil {
+    panic(err)
+  }
+
+  fortuneCommand.Start()
+  outputStream := bufio.NewScanner(pipe)
+  outputStream.Scan()
+  fmt.Println(outputStream.Text())
 }
-
