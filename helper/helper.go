@@ -3,6 +3,7 @@ package helper
 import (
 	"bufio"
 	"fmt"
+	"io"
 	"math/rand"
 	"os"
 	"os/exec"
@@ -10,10 +11,11 @@ import (
 	"strings"
 )
 
+
 var files []string
 
 func RandInt(min int, max int) int {
-  return min + rand.Intn(max-min)
+  return min + rand.Intn(max-min) // so as to choose any number bw 1 to 6
 }
 
 func PathWalk(path string, f os.FileInfo, err error) error {
@@ -45,7 +47,6 @@ func Program() {
   
   // fmt.Println(path)
   err = filepath.Walk(root, PathWalk)
-
   if err != nil {
     panic(err)
   }
@@ -62,6 +63,30 @@ func Program() {
   random_num := RandInt(1,len(files))
   random_filename := files[random_num]
   fmt.Println(random_filename)
+
+  // we can now randomly choose a file.
+  // time to read contents of a random file, each quote is seperated by a %
+
+  f, err := os.Open(random_filename)
+  if err != nil {
+    panic(err)
+  }
+
+  defer f.Close()
+
+  b, err := io.ReadAll(f)
+  if err != nil {
+    panic(err)
+  }
+
+  b_string := string(b)
+
+  quotes_array := strings.Split(b_string, "%")
+  random_quote := RandInt(1, len(quotes_array))
+
+  fmt.Println(quotes_array[random_quote])
+
+
 
 }
 
