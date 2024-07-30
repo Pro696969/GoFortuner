@@ -1,7 +1,7 @@
 package main
 
 import(
-  "gofortune/helper"
+  "gofortune/program"
 )
 
 func main() {
