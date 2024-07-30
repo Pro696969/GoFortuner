@@ -1,7 +1,7 @@
 package main
 
 import(
-  "gocowsay/helper"
+  "gofortune/helper"
 )
 
 func main() {
