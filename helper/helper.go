@@ -62,7 +62,7 @@ func Program() {
 
   random_num := RandInt(1,len(files))
   random_filename := files[random_num]
-  fmt.Println(random_filename)
+  // fmt.Println(random_filename) //from which file the quote is taken from 
 
   // we can now randomly choose a file.
   // time to read contents of a random file, each quote is seperated by a %
