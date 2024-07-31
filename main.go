@@ -5,5 +5,7 @@ import(
 )
 
 func main() {
-  helper.Program()
+  //helper.Program()
+  fortuner.Program()
+
 }
