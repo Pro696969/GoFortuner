@@ -18,10 +18,35 @@ func random_intn(min, max int) int {
 	return min + rand.Intn(max-min)
 }
 
-func random_fortuner_all() *os.File {
-	f, err := os.Open("assets/all_fortunes")
+func random_fortuner_allfortunes() *os.File {
+	random_num := random_intn(0, 3)
+	files := [3]string{"fortunes", "literature", "riddles"}
+	choice := files[random_num]
+	// fmt.Println(choice)
+	fname := "assets/" + choice
+	// fmt.Println(fname)
+	f, err := os.Open(fname)
 	err_handler(err)
 	return f
+}
+
+func random_fortuner_literature() *os.File {
+	f, err := os.Open("assets/literature")
+	err_handler(err)
+	return f
+}
+
+func random_fortune_printer(f *os.File) {
+	b, err := io.ReadAll(f)
+	err_handler(err)
+	b_string := string(b)
+
+	// fmt.Println(b_string)
+
+	fortuner_array := strings.Split(b_string, "%")
+	random_fortune := random_intn(1, len(fortuner_array))
+
+	fmt.Println(fortuner_array[random_fortune])
 }
 
 func Program() {
@@ -38,17 +63,18 @@ func Program() {
 	//
 	// fmt.Println("number of lines scanned ", count)
 
-	f := random_fortuner_all()
+	f := random_fortuner_allfortunes()
 	defer f.Close()
-	b, err := io.ReadAll(f)
-	err_handler(err)
-	b_string := string(b)
+	random_fortune_printer(f)
+	// b, err := io.ReadAll(f)
+	// err_handler(err)
+	// b_string := string(b)
 
-	// fmt.Println(b_string)
+	// // fmt.Println(b_string)
 
-	fortuner_array := strings.Split(b_string, "%")
-	random_fortune := random_intn(1, len(fortuner_array))
+	// fortuner_array := strings.Split(b_string, "%")
+	// random_fortune := random_intn(1, len(fortuner_array))
 
-	fmt.Println(fortuner_array[random_fortune])
+	// fmt.Println(fortuner_array[random_fortune])
 
 }
