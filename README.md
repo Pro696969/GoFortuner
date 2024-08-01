@@ -1,7 +1,7 @@
 # GOFortuner : Tells you today's fortune :D
 
 ### - USAGE :
-``` fortune [-f/-l/-r] ```
+``` gofortune [-f/-l/-r] ```
 
 ### - DESCRIPTION :
 | Option   | Useage                                     |
