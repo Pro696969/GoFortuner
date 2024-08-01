@@ -36,6 +36,18 @@ func random_fortuner_literature() *os.File {
 	return f
 }
 
+func random_fortuner_riddles() *os.File {
+	f, err := os.Open("assets/riddles")
+	err_handler(err)
+	return f
+}
+
+func random_fortuner_fortunes() *os.File {
+	f, err := os.Open("assets/fortunes")
+	err_handler(err)
+	return f
+}
+
 func random_fortune_printer(f *os.File) {
 	b, err := io.ReadAll(f)
 	err_handler(err)
@@ -63,7 +75,8 @@ func Program() {
 	//
 	// fmt.Println("number of lines scanned ", count)
 
-	f := random_fortuner_allfortunes()
+	// f := random_fortuner_allfortunes()
+	f := random_fortuner_fortunes()
 	defer f.Close()
 	random_fortune_printer(f)
 	// b, err := io.ReadAll(f)
