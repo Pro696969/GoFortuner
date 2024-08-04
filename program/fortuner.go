@@ -2,7 +2,6 @@ package fortuner
 
 import (
 	"embed"
-	_ "embed"
 	"fmt"
 	"io"
 	"math/rand"
@@ -10,7 +9,7 @@ import (
 	"strings"
 )
 
-// var f *os.File
+//go:embed
 var f embed.FS
 
 func err_handler(e error) {
