@@ -1,6 +1,8 @@
 package fortuner
 
 import (
+	"embed"
+	_ "embed"
 	"fmt"
 	"io"
 	"math/rand"
@@ -8,7 +10,8 @@ import (
 	"strings"
 )
 
-var f *os.File
+// var f *os.File
+var f embed.FS
 
 func err_handler(e error) {
 	if e != nil {
@@ -79,5 +82,5 @@ func Program() {
 			fmt.Println("fortune [-f/-r/-l]")
 		}
 	}
-	defer f.Close()
+	// defer f.Close()
 }
