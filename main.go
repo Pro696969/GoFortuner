@@ -45,9 +45,6 @@ func random_fortuner_allfortunes() []byte {
 		err_handler(err)
 		return data
 	}
-	// data, _ := f_fortunes.ReadFile(fname)
-	// fmt.Println(string(data))
-	// return data
 }
 
 func random_fortuner_literature() []byte {
@@ -69,8 +66,6 @@ func random_fortuner_fortunes() []byte {
 }
 
 func random_fortune_printer(f []byte) {
-	// b, err := io.ReadAll(f)
-	// err_handler(err)
 	b_string := string(f)
 	fortuner_array := strings.Split(b_string, "%")
 	random_fortune := random_intn(1, len(fortuner_array))
