@@ -4,10 +4,9 @@ import (
 	"embed"
 	"fmt"
 	"math/rand"
+	"os"
 	"strings"
 )
-
-var data []byte
 
 //go:embed assets/fortunes
 var f_fortunes embed.FS
@@ -34,14 +33,38 @@ func random_fortuner_allfortunes() []byte {
 	choice := files[random_num]
 	fname := "assets/" + choice
 	if fname == "assets/fortunes" {
-		data, _ = f_fortunes.ReadFile(fname)
+		data, err := f_fortunes.ReadFile(fname)
+		err_handler(err)
+		return data
 	} else if fname == "assets/literature" {
-		data, _ = f_lit.ReadFile(fname)
+		data, err := f_lit.ReadFile(fname)
+		err_handler(err)
+		return data
 	} else {
-		data, _ = f_riddles.ReadFile(fname)
+		data, err := f_riddles.ReadFile(fname)
+		err_handler(err)
+		return data
 	}
 	// data, _ := f_fortunes.ReadFile(fname)
 	// fmt.Println(string(data))
+	// return data
+}
+
+func random_fortuner_literature() []byte {
+	data, err := f_lit.ReadFile("assets/literature")
+	err_handler(err)
+	return data
+}
+
+func random_fortuner_riddles() []byte {
+	data, err := f_riddles.ReadFile("assets/riddles")
+	err_handler(err)
+	return data
+}
+
+func random_fortuner_fortunes() []byte {
+	data, err := f_fortunes.ReadFile("assets/fortunes")
+	err_handler(err)
 	return data
 }
 
@@ -55,6 +78,25 @@ func random_fortune_printer(f []byte) {
 }
 
 func main() {
-	f := random_fortuner_allfortunes()
-	random_fortune_printer(f)
+	cli_args := os.Args
+	// fmt.Println(len(cli_args))
+	if len(cli_args) == 1 {
+		f := random_fortuner_allfortunes()
+		random_fortune_printer(f)
+	} else {
+		switch cli_args[1] {
+		case "-f":
+			f := random_fortuner_fortunes()
+			random_fortune_printer(f)
+		case "-l":
+			f := random_fortuner_literature()
+			random_fortune_printer(f)
+		case "-r":
+			f := random_fortuner_riddles()
+			random_fortune_printer(f)
+		default:
+			fmt.Println("incorrect usage, try :")
+			fmt.Println("fortune [-f/-r/-l]")
+		}
+	}
 }
